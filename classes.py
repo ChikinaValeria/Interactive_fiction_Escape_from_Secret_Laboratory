@@ -35,4 +35,4 @@ class Player:
     def add_score(self, points: int):
         # Adds points to the score and provides feedback
         self.score += points
-        print(f"\n✨ You gained {points} points! Current score: {self.score}\n")
+        print(f"\n 💎 You gained {points} points! Current score: {self.score}\n")
