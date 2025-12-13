@@ -101,7 +101,7 @@ def handle_command(command: str):
 
     if verb in ["quit", "exit"]:
         print("Quitting the game...")
-        return False # Единственный случай, когда возвращаем False
+        return False 
 
     elif verb in ["look", "explore"]:
         display_location_info()
