@@ -47,24 +47,24 @@ loc_6 = Location("Ventilation Access", "A grate leads to the ventilation system,
 
 # Research zone C
 loc_7 = Location("C-2 Laboratory", "A sterile lab with a wounded guard on the floor.",
-                 exits={"west": "Ventilation Access", "north": "Reagent Storage", "south": "Server Room"},
+                 exits={"west": "Ventilation Access", "north": "Reagent Storage", "south": "Server Room", "east": "Rest Area"},
                  npc="Injured Guard")
 loc_8 = Location("Server Room", "The room buzzes with power. The Main Server Terminal is here.",
-                 exits={"north": "C-2 Laboratory", "east": "Data Storage"},
+                 exits={"north": "C-2 Laboratory"},
                  special_action="server_terminal",
                  items=[ALL_ITEMS["Wire"]])
 loc_9 = Location("Doctor's Office", "A messy office. Looks like someone left in a hurry.",
-                 exits={"north": "Rest Area", "east": "Reagent Storage"},
+                 exits={"south": "Rest Area"},
                  items=[ALL_ITEMS["Flash Drive with Code"]])
 loc_10 = Location("Reagent Storage", "Shelves full of chemicals. Better not touch anything.",
-                  exits={"west": "Doctor's Office", "south": "C-2 Laboratory"})
+                  exits={"south": "C-2 Laboratory"})
 loc_11 = Location("Data Storage", "Rows of secure cabinets for project archives.",
-                  exits={"west": "Server Room", "south": "Elevator (C-B)"},
+                  exits={"west": "Rest Area", "south": "Elevator (C-B)"},
                   items=[ALL_ITEMS["Accident Report"]])
 loc_12 = Location("Rest Area", "A small room with a coffee machine.",
-                  exits={"south": "Doctor's Office", "east": "Elevator (C-B)"})
+                  exits={"north": "Doctor's Office", "east": "Data Storage", "west": "C-2 Laboratory"})
 loc_13 = Location("Elevator (C-B)", "An old freight lift, leading to Zone B.",
-                  exits={"west": "Rest Area", "north": "Data Storage"},
+                  exits={"north": "Data Storage"},
                   required_key={"east": "Red Key Card"},
                   exits_with_key={"east": "B-1 Corridor"})
 
