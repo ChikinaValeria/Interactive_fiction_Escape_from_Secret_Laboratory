@@ -1,16 +1,15 @@
-# main.py (Финальная исправленная версия, гарантирующая продолжение игры)
+# main.py
 
 from classes import Player
 from data1 import GAME_WORLD, ALL_ITEMS
 
-# --- GLOBAL GAME STATE ---
+# Global game state
 PLAYER = Player("Reception Area")
 SERVER_ACTIVATED = False
 
-# ... (HELPER FUNCTIONS: get_current_location, get_item_by_name, display_location_info, check_win_condition - без изменений) ...
+# helper functions
 
 def get_current_location():
-    """Returns the current location object."""
     return GAME_WORLD[PLAYER.current_location]
 
 def get_item_by_name(item_name_part: str, inventory_only: bool = False):
@@ -33,22 +32,18 @@ def get_item_by_name(item_name_part: str, inventory_only: bool = False):
     return None
 
 def display_location_info():
-    """Displays information about the current location (look/explore command)."""
     location = get_current_location()
 
     print(f"\n--- You are in: {location.name} ---")
     print(location.description)
 
-    # Items
     if location.items:
         items_names = [item.name for item in location.items]
         print(f"Items here: {', '.join(items_names)}")
 
-    # NPC
     if location.npc:
         print(f"Character: {location.npc} is here.")
 
-    # Exits
     exits_list = []
     for direction, target in location.exits.items():
         if location.required_key and direction in location.required_key:
@@ -85,10 +80,10 @@ def check_win_condition():
 
     return False
 
-# --- COMMAND INTERPRETER ---
+# Command interpretation
 
 def handle_command(command: str):
-    """Interprets the user input command."""
+    """Interprets the user input command"""
     global SERVER_ACTIVATED
 
     parts = command.lower().split()
@@ -106,7 +101,6 @@ def handle_command(command: str):
     elif verb in ["look", "explore"]:
         display_location_info()
 
-    # --- COMMAND INVENTORY/WITH ---
     elif verb in ["with", "inventory", "inv"]:
         if PLAYER.inventory:
             print("--- Your inventory: ---")
@@ -118,7 +112,7 @@ def handle_command(command: str):
             print("Your inventory is empty.")
         print(f"Current score: {PLAYER.score}")
 
-    # --- COMMAND GO (Movement) ---
+    # Command GO
     elif verb == "go":
         if not noun:
             print("❌ Go where? Specify a direction (e.g., 'go north').")
@@ -143,11 +137,11 @@ def handle_command(command: str):
         else:
             print(f"Cannot go in that direction, or '{noun}' is not a valid exit.")
 
-    # --- COMMAND TAKE (Take) ---
+    # take
     elif verb == "take":
         if not noun:
             print("❌ Take what? Specify an item name.")
-            return True # ГАРАНТИРУЕТ ПРОДОЛЖЕНИЕ ИГРЫ
+            return True
 
         item_to_take = get_item_by_name(noun)
         if item_to_take and item_to_take in location.items:
@@ -158,7 +152,7 @@ def handle_command(command: str):
         else:
             print(f"❌ Item '{noun}' is not here or cannot be taken.")
 
-    # --- COMMAND DROP (Drop) ---
+    # drop
     elif verb == "drop":
         if not noun:
             print("❌ Drop what? Specify an item name.")
@@ -172,7 +166,7 @@ def handle_command(command: str):
         else:
             print(f"❌ Item '{noun}' is not in your inventory.")
 
-    # --- COMMAND SWIPE (New: Key Cards) ---
+    # swipe (key card)
     elif verb == "swipe":
         if not noun:
             print("❌ Swipe what? Usage: swipe [key card name]")
@@ -202,7 +196,7 @@ def handle_command(command: str):
         else:
             print(f"❌ The {item_to_swipe.name} does not open any locked doors here.")
 
-    # --- COMMAND UPLOAD (New: Flash Drive at Server) ---
+    # upload
     elif verb == "upload":
         if location.special_action != "server_terminal":
             print("❌ You can only upload data at the Main Server Terminal in the Server Room.")
@@ -228,7 +222,7 @@ def handle_command(command: str):
         print(f"✅ {item_to_upload.name} connected. Server reactivated! Emergency Exit unlocked.")
         print("Note: The server has opened a new way.")
 
-    # --- COMMAND WEAR (New: Hazmat Suit) ---
+    # wear (Hazmat Suit)
     elif verb == "wear":
         if not noun:
             print("❌ Wear what? Usage: wear [suit name]")
@@ -250,10 +244,10 @@ def handle_command(command: str):
 
         PLAYER.has_worn_suit = True
         PLAYER.add_score(5)
-        PLAYER.inventory.remove(item_to_wear) # It's now worn, not in the inventory list
+        PLAYER.inventory.remove(item_to_wear) # It's worn, not in the inventory list
         print("✅ You put on the Hazmat Suit. You can now safely enter hazardous zones.")
 
-    # --- COMMANDS FOR OTHER ITEMS (using generic 'use' logic) ---
+    # use (generic command)
     elif verb == "use":
         if not noun:
             print("❌ Use what? Specify an item name.")
@@ -275,8 +269,7 @@ def handle_command(command: str):
         else:
             print(f"❌ Cannot use '{item_to_use.name}' here in this way.")
 
-    # --- ADDITIONAL COMMANDS ---
-
+    # read
     elif verb == "read":
         if not noun:
             print("❌ Read what? Specify an item name.")
@@ -293,6 +286,7 @@ def handle_command(command: str):
         else:
              print(f"❌ You cannot read '{noun}'.")
 
+    # talk
     elif verb == "talk":
         if location.npc == "Injured Guard":
             red_card = ALL_ITEMS["Red Key Card"]
@@ -306,6 +300,7 @@ def handle_command(command: str):
         else:
             print("There is no one here to talk to.")
 
+    # examine
     elif verb == "examine":
         if not noun:
             print("❌ Examine what? Specify an item name.")
@@ -317,6 +312,7 @@ def handle_command(command: str):
         else:
             print(f"❌ Item '{noun}' is not available to examine.")
 
+    # help
     elif verb == "help":
         print("\n--- Available commands ---")
         print("Movement: go [north/south/east/west]")
@@ -325,8 +321,9 @@ def handle_command(command: str):
         print("  swipe [card name] (Use key cards on locked doors)")
         print("  upload [flash drive name] (Use at Server Room to activate server)")
         print("  wear [suit name] (Use Hazmat Suit)")
-        print("Status: look/explore, inventory/with, score, quit/exit")
+        print("Status: look/explore, inventory/with/inv, score, quit/exit")
 
+    # score
     elif verb == "score":
         print(f"Your current score: {PLAYER.score}/{PLAYER.max_score}")
 
@@ -336,13 +333,11 @@ def handle_command(command: str):
         else:
             print(f"❌ Unknown command: '{command}'. Try 'help'.")
 
-    return True # Возвращение True по умолчанию для продолжения игры
+    return True
 
-# --- MAIN GAME LOOP ---
-# ... (код play_game и EXECUTION без изменений)
+# Main game loop
+
 def play_game():
-    """The main game loop."""
-
     print("=========================================")
     print(" | SECRET LABORATORY 'PROJECT OMEGA' |")
     print("=========================================")
@@ -363,7 +358,7 @@ def play_game():
 
     print("\nGame over. Thank you for playing!")
 
-# --- EXECUTION ---
+# Execution
 if __name__ == "__main__":
     try:
         play_game()
