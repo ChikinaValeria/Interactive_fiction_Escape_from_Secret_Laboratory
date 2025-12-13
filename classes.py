@@ -1,7 +1,7 @@
 # classes.py
 
 class Item:
-    """Represents an item in the game."""
+    # Represents an item in the game
     def __init__(self, name: str, description: str, usage: str = None, points: int = 0):
         self.name = name
         self.description = description

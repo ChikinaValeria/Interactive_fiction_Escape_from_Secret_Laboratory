@@ -1,3 +1,4 @@
+# main.py
 from classes import Player
 from data import GAME_WORLD, ALL_ITEMS
 
