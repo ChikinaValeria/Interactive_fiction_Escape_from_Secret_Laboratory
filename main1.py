@@ -45,7 +45,7 @@ def display_location_info():
         print(f"Character: {location.npc} is here.")
 
     exits_list = []
-    for direction, target in location.exits.items():
+    for direction in location.exits.items():
         if location.required_key and direction in location.required_key:
             exits_list.append(f"{direction} (locked)")
         else:
@@ -68,10 +68,9 @@ def check_win_condition():
     if location.name == "Emergency Exit":
 
         if antidote and SERVER_ACTIVATED:
-            PLAYER.add_score(70)
+            PLAYER.add_score(50)
 
             if PLAYER.score >= PLAYER.max_score:
-                #PLAYER.add_score(70)
                 print("\n\n*** VICTORY! ***")
                 print("You successfully reactivated the server, disabled the security, and escaped the complex.")
                 print(f"You took the Antidote and are safe! Your final score: {PLAYER.score}/{PLAYER.max_score}")
@@ -324,6 +323,7 @@ def handle_command(command: str):
     # help
     elif verb == "help":
         print("\n--- Available commands ---")
+        print()
         print("Movement: go [north/south/east/west]")
         print("Interaction: take [item], drop [item], talk [npc], examine [item], read [item]")
         print("Special Actions:")

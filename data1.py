@@ -17,12 +17,13 @@ item_suit = Item("Hazmat Suit", "Protects against biohazard.", usage="wear", poi
 item_water_canister = Item("Water Canister", "Heavy, but holds clean water.", usage="drink", points=1)
 item_accident_report = Item("Accident Report", "A full log of the Omega Project failure.", usage="read", points=1)
 item_wire = Item("Wire", "A standard server wire, likely useful.", usage="connect", points=1)
+item_server_manual = Item("Server Manual", "A thick technical manual full of schematics and jargon.", usage="read", points=1)
 
 # List of items
 ALL_ITEMS = {item.name: item for item in [
     item_blue_card, item_red_card, item_flash_drive, item_antidote,
     item_suit, item_water_canister, item_accident_report, item_wire,
-    Item("Battery", "A standard AA battery.", points=1),
+    item_server_manual,
 ]}
 
 # Initialization of locations
@@ -52,7 +53,7 @@ loc_7 = Location("C-2 Laboratory", "A sterile lab with a wounded guard on the fl
 loc_8 = Location("Server Room", "The room buzzes with power. The Main Server Terminal is here.",
                  exits={"north": "C-2 Laboratory"},
                  special_action="server_terminal",
-                 items=[ALL_ITEMS["Wire"]])
+                 items=[ALL_ITEMS["Wire"], ALL_ITEMS["Server Manual"]])
 loc_9 = Location("Doctor's Office", "A messy office. Looks like someone left in a hurry.",
                  exits={"south": "Rest Area"},
                  items=[ALL_ITEMS["Flash Drive with Code"]])
