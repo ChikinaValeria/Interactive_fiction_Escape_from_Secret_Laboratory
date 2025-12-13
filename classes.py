@@ -21,7 +21,7 @@ class Location:
         self.npc = npc # non-playable character
         self.required_key = required_key # {'direction': 'Required Key Name'}
         self.exits_with_key = exits_with_key # {'direction': 'Target Location Name'}
-        self.special_action = special_action # e.g., 'server_terminal', 'gas_hazard', 'exit_door'
+        self.special_action = special_action # e.g., 'server_terminal', 'gas_hazard'
 
 class Player:
     # Represents the player and her state

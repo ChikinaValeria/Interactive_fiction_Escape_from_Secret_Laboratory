@@ -29,8 +29,7 @@ ALL_ITEMS = {item.name: item for item in [
 
 # Zone D
 loc_1 = Location("Reception Area", "You stand in an empty reception. Main doors are locked.",
-                 exits={"north": "D-4 Corridor", "east": "Cloakroom", "south": "Cafeteria"},
-                 special_action="exit_door")
+                 exits={"north": "D-4 Corridor", "east": "Cloakroom", "south": "Cafeteria"})
 loc_2 = Location("Cloakroom", "Rows of lockers, some are open. A blue card is visible.",
                  exits={"west": "Reception Area", "east": "D-4 Corridor"},
                  items=[ALL_ITEMS["Blue Key Card"]])

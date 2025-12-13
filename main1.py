@@ -101,7 +101,7 @@ def handle_command(command: str):
 
     if verb in ["quit", "exit"]:
         print("Quitting the game...")
-        return False 
+        return False
 
     elif verb in ["look", "explore"]:
         display_location_info()
@@ -325,7 +325,7 @@ def handle_command(command: str):
         print("  swipe [card name] (Use key cards on locked doors)")
         print("  upload [flash drive name] (Use at Server Room to activate server)")
         print("  wear [suit name] (Use Hazmat Suit)")
-        print("Status: look/explore, inventory/with, score, quit")
+        print("Status: look/explore, inventory/with, score, quit/exit")
 
     elif verb == "score":
         print(f"Your current score: {PLAYER.score}/{PLAYER.max_score}")
