@@ -73,19 +73,19 @@ loc_14 = Location("B-1 Corridor", "WARNING: High levels of biohazard gas detecte
                   exits={"west": "Elevator (C-B)", "east": "Bio-Isolation Chamber", "south": "Guard Post B"},
                   special_action="gas_hazard")
 loc_15 = Location("Bio-Isolation Chamber", "A decontamination area, currently inactive.",
-                  exits={"west": "B-1 Corridor", "north": "Sample Cooler"})
+                  exits={"west": "B-1 Corridor", "north": "Sample Cooler"}, special_action="gas_hazard")
 loc_16 = Location("Sample Cooler", "Below-freezing temperatures for biological samples.",
-                  exits={"south": "Bio-Isolation Chamber", "east": "Antidote Sector"})
+                  exits={"south": "Bio-Isolation Chamber", "east": "Antidote Sector"}, special_action="gas_hazard")
 loc_17 = Location("Antidote Sector", "The final lockbox. The Antidote is inside.",
                   exits={"west": "Sample Cooler"},
-                  items=[ALL_ITEMS["Antidote"]])
+                  items=[ALL_ITEMS["Antidote"]], special_action="gas_hazard")
 loc_18 = Location("Guard Post B", "A deserted security post. A Hazmat Suit hangs here.",
                   exits={"north": "B-1 Corridor", "east": "Emergency Exit", "south": "Technical Access"},
-                  items=[ALL_ITEMS["Hazmat Suit"]])
+                  items=[ALL_ITEMS["Hazmat Suit"]], special_action="gas_hazard")
 loc_19 = Location("Emergency Exit", "The final door. The main objective door.",
                   exits={"west": "Guard Post B"})
 loc_20 = Location("Technical Access", "A service area leading nowhere important.",
-                  exits={"north": "Guard Post B"})
+                  exits={"north": "Guard Post B"}, special_action="gas_hazard")
 
 # Game world dictionary
 GAME_WORLD = {loc.name: loc for loc in [

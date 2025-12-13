@@ -322,6 +322,9 @@ def handle_command(command: str):
         print("  upload [flash drive name] (Use at Server Room to activate server)")
         print("  wear [suit name] (Use Hazmat Suit)")
         print("Status: look/explore, inventory/with/inv, score, quit/exit")
+        print()
+        print("Command should contain one verb.")
+        print("The item after verb can consist of one, two or three words, e.g. 'blue key card'.")
 
     # score
     elif verb == "score":
