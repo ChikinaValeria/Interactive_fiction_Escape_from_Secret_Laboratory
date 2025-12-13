@@ -8,7 +8,7 @@ from classes import Item, Location
 item_blue_card = Item("Blue Key Card", "Grants access to Zone C.", usage="key_blue", points=5)
 item_red_card = Item("Red Key Card", "Grants access to Zone B.", usage="key_red", points=5)
 item_flash_drive = Item("Flash Drive with Code", "Contains data to reactivate the server.", usage="upload", points=10)
-item_antidote = Item("Antidote", "Salvation from the gas. Essential for winning.", usage="antidote", points=40)
+item_antidote = Item("Antidote", "Salvation from the gas. Essential for winning.", usage="antidote", points=20)
 
 # Gear
 item_suit = Item("Hazmat Suit", "Protects against biohazard.", usage="wear", points=10)

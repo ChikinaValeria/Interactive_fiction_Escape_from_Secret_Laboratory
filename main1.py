@@ -65,15 +65,24 @@ def check_win_condition():
 
     antidote = get_item_by_name("Antidote", inventory_only=True)
 
-    if location.name == "Emergency Exit" and antidote and SERVER_ACTIVATED:
-        PLAYER.add_score(100)
-        print("\n\n*** VICTORY! ***")
-        print("You successfully reactivated the server, disabled the security, and escaped the complex.")
-        print(f"You took the Antidote and are safe! Your final score: {PLAYER.score}/{PLAYER.max_score}")
-        return True
-
     if location.name == "Emergency Exit":
-        if not SERVER_ACTIVATED:
+
+        if antidote and SERVER_ACTIVATED:
+            PLAYER.add_score(70)
+
+            if PLAYER.score >= PLAYER.max_score:
+                #PLAYER.add_score(70)
+                print("\n\n*** VICTORY! ***")
+                print("You successfully reactivated the server, disabled the security, and escaped the complex.")
+                print(f"You took the Antidote and are safe! Your final score: {PLAYER.score}/{PLAYER.max_score}")
+                return True
+            else:
+                print(f"\n\n*** DEFEAT! ***")
+                print(f"You reached the Emergency Exit and have the Antidote, but you failed to collect enough data and evidence.")
+                print(f"You must achieve a score of at least {PLAYER.max_score} to be considered successful. Your score: {PLAYER.score}")
+                return True
+
+        elif not SERVER_ACTIVATED:
             print("❌ The emergency exit is still locked. You must activate the Server to disable the security system.")
         elif not antidote:
             print("⚠️ The exit is open, but the toxic gas is spreading. You must find the Antidote first!")
@@ -218,7 +227,7 @@ def handle_command(command: str):
         global SERVER_ACTIVATED
         SERVER_ACTIVATED = True
         PLAYER.inventory.remove(item_to_upload)
-        PLAYER.add_score(20)
+        PLAYER.add_score(15)
         print(f"✅ {item_to_upload.name} connected. Server reactivated! Emergency Exit unlocked.")
         print("Note: The server has opened a new way.")
 
@@ -345,6 +354,8 @@ def play_game():
     print(" | SECRET LABORATORY 'PROJECT OMEGA' |")
     print("=========================================")
     print("Goal: Activate the Server and escape with the Antidote via the Emergency Exit.")
+    print(f"❗ Additional Goal: You must also achieve a **minimum score of {PLAYER.max_score}** to be considered successful.")
+    print("If you reach the exit with the Antidote but a lower score, you will lose.")
 
     display_location_info()
 
